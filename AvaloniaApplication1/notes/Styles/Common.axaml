@@ -1,0 +1,30 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+	
+	<!-- Visible borders (for grouping) -->
+	<Style Selector="Border.VisibleBorders">
+		<Setter Property="BorderBrush" Value="Black" />
+		<Setter Property="BorderThickness" Value="1" />
+
+		<Setter Property="CornerRadius" Value="10" />
+		<Setter Property="Margin" Value="1" />
+	</Style>
+
+	<Style Selector="TextBlock.h1">
+		<Setter Property="FontSize" Value="24"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+	</Style>
+
+	<Style Selector="TextBlock.h2">
+		<Setter Property="FontSize" Value="10"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+	</Style>
+	
+</Styles>

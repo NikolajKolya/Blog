@@ -1,0 +1,159 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:blogs.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="blogs.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="blogs">
+
+	<Window.Styles>
+		<StyleInclude Source="/Styles/Common.axaml" />
+	</Window.Styles>
+
+	<Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+	<Grid
+		ColumnDefinitions="*, *">
+		<Grid
+			ColumnDefinitions="*"
+			RowDefinitions="Auto, *, Auto">
+
+			<!-- Here will be blogs list -->
+			<Grid
+				Grid.Column="0"
+				Grid.Row="0">
+
+				<StackPanel
+					Orientation="Vertical">
+
+					<!-- Blogs list -->
+					<ListBox
+							Height="200"
+							Items="{ Binding BlogItems }"
+							SelectedItem="{ Binding SelectedBlog }">
+
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+
+								<DockPanel
+									HorizontalAlignment="Stretch">
+
+									<Grid
+										HorizontalAlignment="Stretch"
+										ColumnDefinitions="*, Auto, Auto"
+										RowDefinitions="Auto">
+
+										<TextBlock
+											Grid.Column="0"
+											Grid.Row="0"
+											Text="{ Binding Name }"/>
+
+										<TextBlock
+											HorizontalAlignment="Right"
+											Grid.Column="2"
+											Grid.Row="0"
+											Text="{ Binding Timestamp }"/>
+									</Grid>
+								</DockPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+
+					</ListBox>
+
+				</StackPanel>
+			</Grid>
+			<!-- Blog -->
+			<Grid
+				Grid.Column="0"
+				Grid.Row="1">
+
+				<Grid
+					ColumnDefinitions="Auto, *"
+					RowDefinitions="Auto, Auto, *">
+
+					<!-- Title -->
+					<Label
+						Grid.Column="0"
+						Grid.Row="0"
+						Content="Название поста:"/>
+
+					<TextBox
+						Grid.Column="1"
+						Grid.Row="0"
+						Text="{ Binding BlogTitle }"/>
+
+					<!-- Blog -->
+					<Label
+						Grid.Column="0"
+						Grid.Row="1"
+						Content="Содержимое поста: "/>
+					<TextBox
+						Grid.Column="0"
+						Grid.ColumnSpan="2"
+						Grid.Row="2"
+						AcceptsReturn="True"
+						Text="{ Binding BlogText }" />
+
+				</Grid>
+			</Grid>
+					<!-- Blog controls-->
+					<StackPanel
+						Grid.Column="0"
+						Grid.Row="2"
+						Orientation="Horizontal">
+						<Grid
+							RowDefinitions="*"
+							ColumnDefinitions="*, *, *">
+							<StackPanel
+								Grid.Column="0">
+								<Button
+									Content="Удалить пост"
+									Command="{ Binding DeleteBlogCommand }"/>
+							</StackPanel>
+							<StackPanel
+								Grid.Column="1">
+								<Button
+									Content="Сохранить пост"
+									Command="{ Binding SaveBlogCommand }"/>
+							</StackPanel>
+							<StackPanel
+								Grid.Column="2">
+								<Button
+									Content="Добавить пост"
+									Command="{ Binding AddNewBlogCommand }"/>
+							</StackPanel>
+						</Grid>
+					</StackPanel>
+		</Grid>
+			<Grid
+				Grid.Column = "1"
+				RowDefinitions = "Auto, *">
+				<Grid
+					Grid.Row = "0"
+					ColumnDefinitions = "*, Auto"
+					Margin = "10, 5, 10, 10">
+				<TextBlock
+					Grid.Column = "0"
+					HorizontalAlignment="Center"
+					Classes="h1"
+					TextWrapping="Wrap"
+					Text="{ Binding BlogTitle }">
+				</TextBlock>
+					<TextBlock
+						Classes="h2"
+						Grid.Column = "1"
+						Text="{ Binding BlogTime }">
+					</TextBlock>
+				</Grid>
+				<TextBlock
+					Margin = "10, 20, 10, 10"
+					Grid.Row = "1"
+					Text="{ Binding BlogText }">
+				</TextBlock>
+			</Grid>
+		</Grid>
+
+</Window>
