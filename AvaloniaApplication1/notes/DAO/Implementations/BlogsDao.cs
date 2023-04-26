@@ -35,6 +35,7 @@ namespace blogs.DAO.Implementations
         {
             return _mainDbContext
                 .Blogs
+                .OrderByDescending(b => b.Timestamp)
                 .ToList();
         }
 

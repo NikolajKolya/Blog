@@ -127,33 +127,77 @@
 							</StackPanel>
 						</Grid>
 					</StackPanel>
-		</Grid>
-			<Grid
-				Grid.Column = "1"
-				RowDefinitions = "Auto, *">
+			</Grid>
+			<StackPanel
+				Grid.Row ="0"
+				Grid.Column = "1">
+				
 				<Grid
-					Grid.Row = "0"
-					ColumnDefinitions = "*, Auto"
-					Margin = "10, 5, 10, 10">
-				<TextBlock
-					Grid.Column = "0"
-					HorizontalAlignment="Center"
-					Classes="h1"
-					TextWrapping="Wrap"
-					Text="{ Binding BlogTitle }">
-				</TextBlock>
+					RowDefinitions = "Auto, *">
+				
+					<Grid
+						Grid.Row = "0"
+						ColumnDefinitions = "*, Auto"
+						Margin = "10, 5, 10, 10">
+					
+						<TextBlock
+							Grid.Column = "0"
+							HorizontalAlignment="Center"
+							Classes="h1"
+							TextWrapping="Wrap"
+							Text="{ Binding BlogTitle }">
+						</TextBlock>
+					
+						<TextBlock
+							Classes="h2"
+							Grid.Column = "1"
+							Text="{ Binding BlogTime }">
+						</TextBlock>
+					</Grid>
+				
 					<TextBlock
-						Classes="h2"
-						Grid.Column = "1"
-						Text="{ Binding BlogTime }">
+						Margin = "10, 20, 10, 10"
+						Grid.Row = "1"
+						Text="{ Binding BlogText }">
 					</TextBlock>
 				</Grid>
-				<TextBlock
+
+				<Border
 					Margin = "10, 20, 10, 10"
-					Grid.Row = "1"
-					Text="{ Binding BlogText }">
-				</TextBlock>
-			</Grid>
+					Padding="10"
+					Classes="VisibleBorders">
+
+					<StackPanel>
+						<Label
+							Content="Все комментарии:"/>
+					
+						<TextBox
+							AcceptsReturn="True"
+							IsReadOnly="True"/>
+					</StackPanel>
+				
+				</Border>
+					
+				<Border
+					Margin = "10, 20, 10, 10"
+					Padding="10"
+					Classes="VisibleBorders">
+					
+					<StackPanel>
+						<Label
+							Content="Комментарий:"/>
+				
+						<TextBox
+							AcceptsReturn="True"
+							Text="{ Binding CommentText }"/>
+			
+						<Button
+							Content="Добавить"
+							Command="{ Binding AddCommentCommand }"/>
+					
+					</StackPanel>
+				</Border>
+			</StackPanel>
 		</Grid>
 
 </Window>

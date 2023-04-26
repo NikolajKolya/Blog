@@ -29,6 +29,8 @@ namespace blogs.ViewModels
 
         private IList<BlogItem> _blogItems = new List<BlogItem>();
 
+        private string _commentText;
+
         /// <summary>
         /// Add new blog
         /// </summary>
@@ -40,6 +42,8 @@ namespace blogs.ViewModels
         public ReactiveCommand<Unit, Unit> DeleteBlogCommand { get; }
 
         public ReactiveCommand<Unit, Unit> SaveBlogCommand { get; }
+
+        public ReactiveCommand<Unit, Unit> AddCommentCommand { get; }
 
         public IList<BlogItem> BlogItems
         {
@@ -88,6 +92,15 @@ namespace blogs.ViewModels
             }
         }
 
+        public string CommentText
+        {
+            get => _commentText;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _commentText, value);
+            }
+        }
+
         public MainWindowViewModel()
         {
             _blogsService = Program.Di.GetService<IBlogsService>();
@@ -95,8 +108,14 @@ namespace blogs.ViewModels
             AddNewBlogCommand = ReactiveCommand.Create(OnAddNewBlogCommand);
             DeleteBlogCommand = ReactiveCommand.Create(OnDeleteNewBlogCommand);
             SaveBlogCommand = ReactiveCommand.Create(OnSaveBlogCommand);
+            AddCommentCommand = ReactiveCommand.Create(OnAddCommentCommand);
 
             ReloadBlogsList();
+        }
+
+        private void OnAddCommentCommand()
+        {
+            
         }
 
         /// <summary>
