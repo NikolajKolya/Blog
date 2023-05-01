@@ -12,12 +12,17 @@ using System.Reactive;
 using System.Text;
 using blogs.Views;
 using Blog = blogs.Models.Blog;
+using Avalonia.Controls;
+using HarfBuzzSharp;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace blogs.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
         private readonly IBlogsService _blogsService;
+        private readonly IExportImportService _exportImportService;
 
         private string _blogText;
 
@@ -46,6 +51,8 @@ namespace blogs.ViewModels
         public ReactiveCommand<Unit, Unit> SaveBlogCommand { get; }
 
         public ReactiveCommand<Unit, Unit> AddCommentCommand { get; }
+
+        public ReactiveCommand<Unit, Unit> ExportCommand { get; }
 
         public IList<BlogItem> BlogItems
         {
@@ -112,11 +119,13 @@ namespace blogs.ViewModels
         public MainWindowViewModel()
         {
             _blogsService = Program.Di.GetService<IBlogsService>();
+            _exportImportService = Program.Di.GetService<IExportImportService>();
 
             AddNewBlogCommand = ReactiveCommand.Create(OnAddNewBlogCommand);
             DeleteBlogCommand = ReactiveCommand.Create(OnDeleteNewBlogCommand);
             SaveBlogCommand = ReactiveCommand.Create(OnSaveBlogCommand);
             AddCommentCommand = ReactiveCommand.Create(OnAddCommentCommand);
+            ExportCommand = ReactiveCommand.CreateFromTask(OnExportCommentAsync);
 
             ReloadBlogsList();
         }
@@ -217,6 +226,27 @@ namespace blogs.ViewModels
             }
 
             BlogItems = new List<BlogItem>(BlogItems);
+        }
+
+        private async Task OnExportCommentAsync()
+        {
+            var dialog = new SaveFileDialog();
+
+            dialog.Filters.Add(new FileDialogFilter() { Name = "JSON", Extensions = { "json", "JSON" } });
+            dialog.DefaultExtension = "json";
+
+            dialog.InitialFileName = "Save.json";
+            var filename = await dialog.ShowAsync(Program.GetMainWindow()).ConfigureAwait(false);
+
+            if (filename == null)
+            {
+                return;
+            }
+
+            // Начать сохранение
+            var blogsAsString = _exportImportService.ExportDb();
+
+            File.WriteAllText(filename, blogsAsString);
         }
     }
 }

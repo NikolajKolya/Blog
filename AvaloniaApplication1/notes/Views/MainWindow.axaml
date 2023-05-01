@@ -16,7 +16,9 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 	<Grid
-		ColumnDefinitions="*, *">
+		ColumnDefinitions="*, *"
+		RowDefinitions="*, Auto">
+		
 		<Grid
 			ColumnDefinitions="*"
 			RowDefinitions="Auto, *, Auto">
@@ -198,6 +200,17 @@
 					
 					</StackPanel>
 				</Border>
+			</StackPanel>
+
+			<StackPanel
+				Grid.Column="0"
+				Grid.ColumnSpan="2"
+				Grid.Row="1">
+
+				<Button
+					Content="Экспортировать блог"
+					Command="{ Binding ExportCommand }"/>
+				
 			</StackPanel>
 		</Grid>
 

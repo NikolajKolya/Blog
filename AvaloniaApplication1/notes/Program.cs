@@ -9,6 +9,7 @@ using blogs.Mappers.Implementations;
 using blogs.Services.Abstract;
 using blogs.Services.Implementations;
 using System;
+using Avalonia.Controls;
 
 namespace blogs
 {
@@ -48,8 +49,19 @@ namespace blogs
             services.AddSingleton<IBlogsService, BlogsService>();
             services.AddSingleton<IBlogsDao, BlogsDao>();
             services.AddSingleton<IBlogsMapper, BlogsMapper>();
+            services.AddSingleton<IExportImportService, ExportImportService>();
 
             return services;
+        }
+
+        // Getting main window
+        public static Window GetMainWindow()
+        {
+            if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+            {
+                return desktopLifetime.MainWindow;
+            }
+            return null;
         }
     }
 }
