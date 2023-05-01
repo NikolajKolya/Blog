@@ -32,5 +32,10 @@ namespace blogs.DAO.Models
         /// Creation time
         /// </summary>
         public DateTime Timestamp { get; set; }
+
+        /// <summary>
+        /// Comments
+        /// </summary>
+        public List<Comment> Comments { get; set; }
     }
 }

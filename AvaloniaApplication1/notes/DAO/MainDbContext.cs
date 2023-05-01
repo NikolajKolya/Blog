@@ -28,8 +28,13 @@ namespace blogs.DAO
         }
 
         /// <summary>
-        /// Заметки в базе данных
+        /// Блоги
         /// </summary>
         public DbSet<Blog> Blogs { get; set; }
+
+        /// <summary>
+        /// Комментарии
+        /// </summary>
+        public DbSet<Comment> Comments { get; set; }
     }
 }

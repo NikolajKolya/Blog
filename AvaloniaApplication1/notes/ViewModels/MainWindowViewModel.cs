@@ -113,11 +113,6 @@ namespace blogs.ViewModels
             ReloadBlogsList();
         }
 
-        private void OnAddCommentCommand()
-        {
-            
-        }
-
         /// <summary>
         /// Add new blog
         /// </summary>
@@ -125,6 +120,18 @@ namespace blogs.ViewModels
         {
             _blogsService.Add(BlogTitle, BlogText); // Тот же комментарий про совпадение
             // индекса и ID в энаме
+
+            ReloadBlogsList();
+        }
+
+        private void OnAddCommentCommand()
+        {
+            if (SelectedBlog == null)
+            {
+                return;
+            }
+
+            _blogsService.AddComment(SelectedBlog.Id, CommentText);
 
             ReloadBlogsList();
         }

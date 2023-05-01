@@ -33,5 +33,10 @@ namespace blogs.Services.Abstract
         /// Обновить заметку
         /// </summary>
         void Update(Blog newBlog);
+
+        /// <summary>
+        /// Add comment to a blog with given ID
+        /// </summary>
+        void AddComment(Guid blogId, string comment);
     }
 }

@@ -60,5 +60,20 @@ namespace blogs.Services.Implementations
             var mappedNewBlog = _blogsMapper.Map(newBlog);
             _blogsDao.Update(mappedNewBlog);
         }
+
+        public void AddComment(Guid blogId, string comment)
+        {
+            var existingBlog = _blogsDao.GetBlogById(blogId);
+
+            var newComment = new DAO.Models.Comment()
+            {
+                Text = comment,
+                Parent = existingBlog
+            };
+
+            existingBlog.Comments.Add(newComment);
+
+            _blogsDao.Update(existingBlog);
+        }
     }
 }

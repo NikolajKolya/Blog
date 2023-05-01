@@ -1,5 +1,6 @@
 ﻿using blogs.DAO.Abstract;
 using blogs.DAO.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,7 @@ namespace blogs.DAO.Implementations
         {
             return _mainDbContext
                 .Blogs
+                .Include(b => b.Comments)
                 .Single(n => n.Id == id);
         }
 
