@@ -54,6 +54,8 @@ namespace blogs.ViewModels
 
         public ReactiveCommand<Unit, Unit> ExportCommand { get; }
 
+        public ReactiveCommand<Unit, Unit> ImportCommand { get; }
+
         public IList<BlogItem> BlogItems
         {
             get => _blogItems;
@@ -125,7 +127,8 @@ namespace blogs.ViewModels
             DeleteBlogCommand = ReactiveCommand.Create(OnDeleteNewBlogCommand);
             SaveBlogCommand = ReactiveCommand.Create(OnSaveBlogCommand);
             AddCommentCommand = ReactiveCommand.Create(OnAddCommentCommand);
-            ExportCommand = ReactiveCommand.CreateFromTask(OnExportCommentAsync);
+            ExportCommand = ReactiveCommand.CreateFromTask(OnExportCommandAsync);
+            ImportCommand = ReactiveCommand.CreateFromTask(OnImportCommandAsync);
 
             ReloadBlogsList();
         }
@@ -228,7 +231,7 @@ namespace blogs.ViewModels
             BlogItems = new List<BlogItem>(BlogItems);
         }
 
-        private async Task OnExportCommentAsync()
+        private async Task OnExportCommandAsync()
         {
             var dialog = new SaveFileDialog();
 
@@ -247,6 +250,26 @@ namespace blogs.ViewModels
             var blogsAsString = _exportImportService.ExportDb();
 
             File.WriteAllText(filename, blogsAsString);
+        }
+
+        private async Task OnImportCommandAsync()
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filters.Add(new FileDialogFilter() { Name = "JSON", Extensions = { "json", "JSON" } });
+            dialog.AllowMultiple = false;
+
+            var filename = await dialog.ShowAsync(Program.GetMainWindow()).ConfigureAwait(false);
+
+            if (filename == null)
+            {
+                return;
+            }
+
+            var fileContent = File.ReadAllText(filename.FirstOrDefault());
+
+            _exportImportService.ImportDb(fileContent);
+
+            ReloadBlogsList();
         }
     }
 }

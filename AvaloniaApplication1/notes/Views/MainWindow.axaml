@@ -211,6 +211,10 @@
 					Content="Экспортировать блог"
 					Command="{ Binding ExportCommand }"/>
 				
+				<Button
+					Content="Импортировать блог"
+					Command="{ Binding ImportCommand }"/>
+				
 			</StackPanel>
 		</Grid>
 

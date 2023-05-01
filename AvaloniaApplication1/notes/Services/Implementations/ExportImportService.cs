@@ -37,5 +37,26 @@ namespace blogs.Services.Implementations
 
             return JsonSerializer.Serialize(exportBlogs);
         }
+
+        public void ImportDb(string json)
+        {
+            var blogs = JsonSerializer.Deserialize<List<ExportBlog>>(json);
+
+            var dbBlogs = blogs
+                .Select(b => new Blog()
+                {
+                    Id = b.Id,
+                    Name = b.Name,
+                    Content = b.Content,
+                    Timestamp = b.Timestamp,
+                    Comments = new List<DAO.Models.Comment>()
+                })
+                .ToList();
+
+            foreach(var dbBlog in dbBlogs)
+            {
+                _dao.AddBlog(dbBlog);
+            }
+        }
     }
 }

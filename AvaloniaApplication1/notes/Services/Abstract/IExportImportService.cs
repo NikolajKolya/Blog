@@ -10,5 +10,7 @@ namespace blogs.Services.Abstract
     public interface IExportImportService
     {
         string ExportDb();
+
+        void ImportDb(string json);
     }
 }
