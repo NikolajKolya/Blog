@@ -31,6 +31,8 @@ namespace blogs.ViewModels
 
         private string _commentText;
 
+        private string _selectedBlogAllComments;
+
         /// <summary>
         /// Add new blog
         /// </summary>
@@ -101,6 +103,12 @@ namespace blogs.ViewModels
             }
         }
 
+        public string SelectedBlogAllComments
+        {
+            get => _selectedBlogAllComments;
+            set => this.RaiseAndSetIfChanged(ref _selectedBlogAllComments, value);
+        }
+
         public MainWindowViewModel()
         {
             _blogsService = Program.Di.GetService<IBlogsService>();
@@ -133,7 +141,7 @@ namespace blogs.ViewModels
 
             _blogsService.AddComment(SelectedBlog.Id, CommentText);
 
-            ReloadBlogsList();
+            LoadBlogBySelectedBlog(SelectedBlog);
         }
 
         /// <summary>
@@ -182,7 +190,13 @@ namespace blogs.ViewModels
 
             BlogTitle = blog.Name;
             BlogText = blog.Content;
-            BlogTime = (blog.Timestamp).ToString();
+            BlogTime = blog.Timestamp.ToString();
+
+            // Loading comments
+            SelectedBlogAllComments = string.Join(",\n", blog
+                .Comments
+                .Select(c => $"Comment: {c.Text}")
+                .ToList());
         }
 
         private void ReloadBlogsList()

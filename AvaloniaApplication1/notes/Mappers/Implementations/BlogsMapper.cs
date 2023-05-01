@@ -1,4 +1,5 @@
 ﻿using blogs.Mappers.Abstract;
+using blogs.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,12 @@ namespace blogs.Mappers.Implementations
                 Name = blog.Name,
                 Content = blog.Content,
                 Timestamp = blog.Timestamp,
+                Comments = blog.Comments != null
+                ? blog
+                .Comments
+                .Select(c => new Comment() { Id = c.Id, Text = c.Text, Parent = null })
+                .ToList()
+                : new List<Comment>()
             };
         }
 
@@ -47,7 +54,8 @@ namespace blogs.Mappers.Implementations
                 Id = blog.Id,
                 Name = blog.Name,
                 Content = blog.Content,
-                Timestamp = blog.Timestamp,
+                Timestamp = blog.Timestamp
+                // Comments are lost!
             };
         }
 

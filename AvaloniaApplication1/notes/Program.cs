@@ -48,8 +48,6 @@ namespace blogs
             services.AddSingleton<IBlogsService, BlogsService>();
             services.AddSingleton<IBlogsDao, BlogsDao>();
             services.AddSingleton<IBlogsMapper, BlogsMapper>();
-            services.AddSingleton<ICommentsDao, CommentsDao>();
-            services.AddSingleton<ICommentsMapper, CommentsMapper>();
 
             return services;
         }

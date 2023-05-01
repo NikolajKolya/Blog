@@ -173,7 +173,8 @@
 					
 						<TextBox
 							AcceptsReturn="True"
-							IsReadOnly="True"/>
+							IsReadOnly="True"
+							Text="{ Binding SelectedBlogAllComments }"/>
 					</StackPanel>
 				
 				</Border>

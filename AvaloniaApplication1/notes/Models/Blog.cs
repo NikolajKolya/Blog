@@ -30,5 +30,10 @@ namespace blogs.Models
         /// Creation time
         /// </summary>
         public DateTime Timestamp { get; set; }
+
+        /// <summary>
+        /// Blog comments
+        /// </summary>
+        public List<Comment> Comments { get; set; }
     }
 }
