@@ -68,7 +68,8 @@ namespace blogs.Services.Implementations
             var newComment = new DAO.Models.Comment()
             {
                 Text = comment,
-                Parent = existingBlog
+                Parent = existingBlog,
+                Timestamp = DateTime.UtcNow
             };
 
             existingBlog.Comments.Add(newComment);

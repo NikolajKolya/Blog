@@ -24,5 +24,10 @@ namespace blogs.DAO.Models
         /// Parent blog
         /// </summary>
         public Blog Parent { get; set; }
+
+        /// <summary>
+        /// Comment Timestamp
+        /// </summary>
+        public DateTime Timestamp { get; set; }
     }
 }

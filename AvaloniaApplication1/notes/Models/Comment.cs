@@ -15,5 +15,10 @@ namespace blogs.Models
         /// Parent blog
         /// </summary>
         public Blog Parent { get; set; }
+
+        /// <summary>
+        /// Comment timestamp (UTC)
+        /// </summary>
+        public DateTime Timestamp { get; set; }
     }
 }

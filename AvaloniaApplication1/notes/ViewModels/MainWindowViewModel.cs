@@ -193,9 +193,11 @@ namespace blogs.ViewModels
             BlogTime = blog.Timestamp.ToString();
 
             // Loading comments
-            SelectedBlogAllComments = string.Join(",\n", blog
+            SelectedBlogAllComments = string.Join(",\n",
+                blog
                 .Comments
-                .Select(c => $"Comment: {c.Text}")
+                .OrderBy(c => c.Timestamp)
+                .Select(c => $"Timestamp: { c.Timestamp.ToLocalTime().ToString() }, Comment: {c.Text}")
                 .ToList());
         }
 

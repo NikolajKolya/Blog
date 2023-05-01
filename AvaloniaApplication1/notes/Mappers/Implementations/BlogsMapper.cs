@@ -36,7 +36,7 @@ namespace blogs.Mappers.Implementations
                 Comments = blog.Comments != null
                 ? blog
                 .Comments
-                .Select(c => new Comment() { Id = c.Id, Text = c.Text, Parent = null })
+                .Select(c => new Comment() { Id = c.Id, Text = c.Text, Parent = null, Timestamp = c.Timestamp })
                 .ToList()
                 : new List<Comment>()
             };
