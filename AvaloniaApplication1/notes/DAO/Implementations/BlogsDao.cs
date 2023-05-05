@@ -1,11 +1,14 @@
 ﻿using blogs.DAO.Abstract;
 using blogs.DAO.Models;
+using blogs.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Blog = blogs.DAO.Models.Blog;
+using Comment = blogs.DAO.Models.Comment;
 
 namespace blogs.DAO.Implementations
 {
@@ -23,6 +26,14 @@ namespace blogs.DAO.Implementations
             _ = blog ?? throw new ArgumentNullException(nameof(blog));
 
             _mainDbContext.Add(blog);
+            _mainDbContext.SaveChanges();
+        }
+
+        public void AddComment(Comment newComment)
+        {
+            _ = newComment ?? throw new ArgumentNullException(nameof(newComment));
+
+            _mainDbContext.Add(newComment);
             _mainDbContext.SaveChanges();
         }
 

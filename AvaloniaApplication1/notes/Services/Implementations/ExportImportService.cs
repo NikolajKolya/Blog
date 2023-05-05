@@ -24,14 +24,21 @@ namespace blogs.Services.Implementations
         public string ExportDb()
         {
             var blogs = _dao.GetAllBlogs();
-
             var exportBlogs = blogs
                 .Select(b => new ExportBlog()
                 {
                     Id = b.Id,
                     Name = b.Name,
                     Content = b.Content,
-                    Timestamp = b.Timestamp
+                    Timestamp = b.Timestamp,
+                    Comments = b.Comments
+                        .Select(c => new ExportComment()
+                        {
+                            Id = c.Id,
+                            Text = c.Text,
+                            Timestamp = c.Timestamp
+                        })
+                        .ToList()
                 })
                 .ToList();
 
@@ -53,10 +60,29 @@ namespace blogs.Services.Implementations
                 })
                 .ToList();
 
+            // Создаём блоги без комментов
             foreach(var dbBlog in dbBlogs)
             {
                 _dao.AddBlog(dbBlog);
+
+                var dbBlogComments = blogs
+                    .Single(b => b.Id == dbBlog.Id)
+                    .Comments
+                    .Select(c => new DAO.Models.Comment()
+                    {
+                        Id = c.Id,
+                        Parent = dbBlog,
+                        Text = c.Text,
+                        Timestamp = c.Timestamp
+                    })
+                    .ToList();
+
+                foreach (var dbBlogComment in dbBlogComments)
+                {
+                    _dao.AddComment(dbBlogComment);
+                }
             }
+
         }
     }
 }

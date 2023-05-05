@@ -32,5 +32,9 @@ namespace blogs.Models
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
+
+
+        [JsonPropertyName("comments")]
+        public List<ExportComment> Comments { get; set; }
     }
 }

@@ -34,5 +34,10 @@ namespace blogs.DAO.Abstract
         /// Обновляем заметку. В заметке должен быть заполнен ID (по нему определяем какую заметку обновлять).
         /// </summary>
         void Update(Blog newBlog);
+
+        /// <summary>
+        /// Добавляет новый коммент к уже существующему посту (он указан в Parent)
+        /// </summary>
+        void AddComment(Comment newComment);
     }
 }
