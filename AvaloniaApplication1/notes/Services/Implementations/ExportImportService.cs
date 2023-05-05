@@ -4,6 +4,7 @@ using blogs.Models;
 using blogs.Services.Abstract;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -15,13 +16,15 @@ namespace blogs.Services.Implementations
     public class ExportImportService : IExportImportService
     {
         private readonly IBlogsDao _dao;
+        private readonly ICompressionService _compressionService;
 
-        public ExportImportService(IBlogsDao dao)
+        public ExportImportService(IBlogsDao dao, ICompressionService compressionService)
         {
             _dao = dao;
+            _compressionService = compressionService;
         }
 
-        public string ExportDb()
+        public MemoryStream ExportDb()
         {
             var blogs = _dao.GetAllBlogs();
             var exportBlogs = blogs
@@ -42,7 +45,8 @@ namespace blogs.Services.Implementations
                 })
                 .ToList();
 
-            return JsonSerializer.Serialize(exportBlogs);
+            var jsonString = JsonSerializer.Serialize(exportBlogs);
+            return _compressionService.Compress(jsonString);
         }
 
         public void ImportDb(string json)

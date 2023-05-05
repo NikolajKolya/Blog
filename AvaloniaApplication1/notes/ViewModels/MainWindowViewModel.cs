@@ -235,10 +235,10 @@ namespace blogs.ViewModels
         {
             var dialog = new SaveFileDialog();
 
-            dialog.Filters.Add(new FileDialogFilter() { Name = "JSON", Extensions = { "json", "JSON" } });
-            dialog.DefaultExtension = "json";
+            dialog.Filters.Add(new FileDialogFilter() { Name = "Zstandard JSON", Extensions = { "zst.json", "ZST.JSON" } });
+            dialog.DefaultExtension = "zst.json";
 
-            dialog.InitialFileName = "Save.json";
+            dialog.InitialFileName = "Save.zst.json";
             var filename = await dialog.ShowAsync(Program.GetMainWindow()).ConfigureAwait(false);
 
             if (filename == null)
@@ -247,9 +247,8 @@ namespace blogs.ViewModels
             }
 
             // Начать сохранение
-            var blogsAsString = _exportImportService.ExportDb();
-
-            File.WriteAllText(filename, blogsAsString);
+            var blogsAsStream = _exportImportService.ExportDb();
+            File.WriteAllBytes(filename, blogsAsStream.ToArray());
         }
 
         private async Task OnImportCommandAsync()

@@ -50,6 +50,7 @@ namespace blogs
             services.AddSingleton<IBlogsDao, BlogsDao>();
             services.AddSingleton<IBlogsMapper, BlogsMapper>();
             services.AddSingleton<IExportImportService, ExportImportService>();
+            services.AddSingleton<ICompressionService, CompressionService>();
 
             return services;
         }

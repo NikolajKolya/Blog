@@ -1,5 +1,4 @@
-﻿using blogs.DAO.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace blogs.Services.Abstract
 {
-    public interface IExportImportService
+    public interface ICompressionService
     {
-        MemoryStream ExportDb();
-
-        void ImportDb(string json);
+        MemoryStream Compress(string source);
     }
 }
