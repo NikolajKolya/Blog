@@ -17,7 +17,9 @@ namespace blogs.Services.Implementations
             var outputStream = new MemoryStream();
 
             var compressionStream = new CompressionStream(outputStream);
+            
             inputStream.CopyTo(compressionStream);
+            compressionStream.Flush();
 
             outputStream.Position = 0;
             return outputStream;
