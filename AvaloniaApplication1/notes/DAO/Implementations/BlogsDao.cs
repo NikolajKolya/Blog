@@ -47,6 +47,7 @@ namespace blogs.DAO.Implementations
         {
             return _mainDbContext
                 .Blogs
+                .Include(b => b.Comments)
                 .OrderByDescending(b => b.Timestamp)
                 .ToList();
         }
