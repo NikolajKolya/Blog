@@ -138,8 +138,8 @@ namespace blogs.ViewModels
         /// </summary>
         private void OnAddNewBlogCommand()
         {
-            _blogsService.Add(BlogTitle, BlogText); // Тот же комментарий про совпадение
-            // индекса и ID в энаме
+            _blogsService.Add(BlogTitle, BlogText); // пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ ID пїЅ пїЅпїЅпїЅпїЅпїЅ
 
             ReloadBlogsList();
         }
@@ -235,10 +235,10 @@ namespace blogs.ViewModels
         {
             var dialog = new SaveFileDialog();
 
-            dialog.Filters.Add(new FileDialogFilter() { Name = "Zstandard JSON", Extensions = { "zst.json", "ZST.JSON" } });
-            dialog.DefaultExtension = "zst.json";
+            dialog.Filters.Add(new FileDialogFilter() { Name = "Zstandard JSON", Extensions = { "json.zst", "JSON.ZST" } });
+            dialog.DefaultExtension = "json.zst";
 
-            dialog.InitialFileName = "Save.zst.json";
+            dialog.InitialFileName = "Save";
             var filename = await dialog.ShowAsync(Program.GetMainWindow()).ConfigureAwait(false);
 
             if (filename == null)
@@ -246,7 +246,7 @@ namespace blogs.ViewModels
                 return;
             }
 
-            // Начать сохранение
+            // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             var blogsAsStream = _exportImportService.ExportDb();
             File.WriteAllBytes(filename, blogsAsStream.ToArray());
         }
@@ -254,7 +254,7 @@ namespace blogs.ViewModels
         private async Task OnImportCommandAsync()
         {
             var dialog = new OpenFileDialog();
-            dialog.Filters.Add(new FileDialogFilter() { Name = "JSON", Extensions = { "json", "JSON" } });
+            dialog.Filters.Add(new FileDialogFilter() { Name = "Zstandard JSON", Extensions = { "json.zst", "JSON.ZST" } });
             dialog.AllowMultiple = false;
 
             var filename = await dialog.ShowAsync(Program.GetMainWindow()).ConfigureAwait(false);
@@ -263,10 +263,8 @@ namespace blogs.ViewModels
             {
                 return;
             }
-
-            var fileContent = File.ReadAllText(filename.FirstOrDefault());
-
-            _exportImportService.ImportDb(fileContent);
+            
+            _exportImportService.ImportDb(filename.FirstOrDefault());
 
             ReloadBlogsList();
         }

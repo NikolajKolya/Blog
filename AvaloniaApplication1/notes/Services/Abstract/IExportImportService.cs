@@ -12,6 +12,6 @@ namespace blogs.Services.Abstract
     {
         MemoryStream ExportDb();
 
-        void ImportDb(string json);
+        void ImportDb(string path);
     }
 }

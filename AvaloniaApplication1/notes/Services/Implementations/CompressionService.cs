@@ -25,6 +25,11 @@ namespace blogs.Services.Implementations
             return outputStream;
         }
 
+        public Stream LoadCompressedFile(string path)
+        {
+            return new DecompressionStream(File.OpenRead(path));
+        }
+
         /// <summary>
         /// Получает на вход строку и преобразует её в поток байтов
         /// </summary>

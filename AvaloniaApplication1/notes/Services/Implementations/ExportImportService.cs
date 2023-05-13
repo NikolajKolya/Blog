@@ -49,8 +49,15 @@ namespace blogs.Services.Implementations
             return _compressionService.Compress(jsonString);
         }
 
-        public void ImportDb(string json)
+        public void ImportDb(string path)
         {
+            var decompressedStream = _compressionService.LoadCompressedFile(path);
+            var decompressedMemoryStream = new MemoryStream();
+            decompressedStream.CopyTo(decompressedMemoryStream);
+            var json = Encoding.UTF8.GetString(decompressedMemoryStream.GetBuffer(),
+                0,
+                (int)decompressedMemoryStream.Length);
+            
             var blogs = JsonSerializer.Deserialize<List<ExportBlog>>(json);
 
             var dbBlogs = blogs

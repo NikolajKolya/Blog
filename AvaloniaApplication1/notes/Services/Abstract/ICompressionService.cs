@@ -10,5 +10,7 @@ namespace blogs.Services.Abstract
     public interface ICompressionService
     {
         MemoryStream Compress(string source);
+
+        Stream LoadCompressedFile(string path);
     }
 }
